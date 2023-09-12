@@ -8,6 +8,10 @@ import * as path from "path";
 // Load environment variables from .env file
 dotenv.config();
 
+console.log(`Running from ${process.cwd()}`);
+const templatesDirectory = path.resolve(process.cwd(), "./templates");
+console.log(`Templates from ${templatesDirectory}`);
+
 console.log(`Sending Mail with ${process.env.CRON_SCHEDULE}`);
 
 cron.schedule(process.env.CRON_SCHEDULE, () => {
@@ -45,7 +49,6 @@ function getDynamicInfo() {
 function readTemplate() {
   console.log("Read from templates");
   try {
-    const templatesDirectory = "./templates";
     const files = fs.readdirSync(templatesDirectory);
     const htmlFiles = files.filter(
       (file) => path.extname(file).toLowerCase() === ".html"
